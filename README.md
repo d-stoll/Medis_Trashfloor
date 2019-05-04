@@ -3,6 +3,18 @@
 
 Ausführen mit 
 
-`sudo chmod 755 startup.sh`
+```shell
+sudo chmod 755 startup.sh
+./startup.sh
+```
 
-`startup`
+
+Alternativ als Autostart-Skript hinzufügen mit
+
+`sudo nano /etc/rc.local`
+
+und dann in der vorletzten Zeile vor "_exit 0_"
+
+`./startup`
+
+hinzufügen
