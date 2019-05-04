@@ -1,11 +1,8 @@
 # Medis_Trashfloor
 
-Installation auf dem Raspberry Pi mit
 
-`pip install -r requirements.txt`
+Ausführen mit 
 
-Danach wie gewohnt mit
+`sudo chmod 755 startup.sh`
 
-`python3 Wuerfel_Musik_Trashfloor.py`
-
-ausführen
+`startup`
