@@ -1,5 +1,6 @@
 from datetime import datetime
 
+
 class TimeControl:
     
     def __init__(self, timeslots):
@@ -12,6 +13,7 @@ class TimeControl:
                 return True
         print(time, "ist nicht im Zeitintervall")
         return False
+
 
 if __name__ == '__main__':
     #Zeitslots
@@ -28,7 +30,11 @@ if __name__ == '__main__':
     DAY5_START = datetime(year=2019, month=6, day=10, hour=9, minute=0)
     DAY5_END = datetime(year=2019, month=6, day=10, hour=21, minute=0)
     
-    TIMESLOTS = [(DAY0_START, DAY0_END), (DAY1_START, DAY1_END), (DAY2_START, DAY2_END), (DAY3_START, DAY3_END), (DAY4_START, DAY4_END)]
+    TIMESLOTS = [(DAY0_START, DAY0_END),
+                 (DAY1_START, DAY1_END),
+                 (DAY2_START, DAY2_END),
+                 (DAY3_START, DAY3_END),
+                 (DAY4_START, DAY4_END)]
     
     time1 = datetime(2019, 4, 29, 17, 30)
     time2 = datetime(2019, 4, 29, 19, 30)
