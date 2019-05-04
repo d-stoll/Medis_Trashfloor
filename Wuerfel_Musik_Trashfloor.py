@@ -4,6 +4,7 @@ import os, sys, time, random, threading, pygame
 import RPi.GPIO as GPIO
 from rpi_ws281x import *
 
+
 # Implementiert einen Lightstrip.
 class Lightstrip:
     
@@ -39,6 +40,7 @@ class Lightstrip:
     def delete(self):
         self.clear()
         del self.strip
+
 
 # Implementiert einen Musikplayer, welcher gezielt ausgeloest werden kann um einen zufaelligen Song zu spielen.
 class MusicPlayerThread(threading.Thread):
@@ -84,14 +86,14 @@ class MusicPlayerThread(threading.Thread):
         if self.playing:
             self.mixer.music.unpause()
             self.paused = False
-
-	# Beendet die aktuelle Wiedergabe
+    
+    # Beendet die aktuelle Wiedergabe
     def stop_song(self):
         self.mixer.music.stop()
         self.playing = False
         self.paused = False
 
-	# Setzt die Wiedergabe fort oder Spielt einen neuen Song
+    # Setzt die Wiedergabe fort oder Spielt einen neuen Song
     def play(self):
         if self.paused:
             self.unpause()
@@ -103,7 +105,7 @@ class MusicPlayerThread(threading.Thread):
     def get_random_song(self):
         return self.directory + "/" + random.choice(self.song_list)
 
-	# Prueft eine Datei auf die richtige Endung
+    # Prueft eine Datei auf die richtige Endung
     def has_extension(self, input_file, ext_list):
         if input_file is None:
             return False
@@ -120,6 +122,7 @@ class MusicPlayerThread(threading.Thread):
         pygame.quit()
         playing = False
         paused = False
+
 
 # Implementiert eine Manager-Klasse, welcher auf Events der Lichtschranke
 # reagiert und die daraus resultierenden Ablaeufe managed.        
@@ -185,6 +188,7 @@ class Manager:
         del self.musicplayer
         self.lightstrip.delete()
         del self.lightstrip
+    
         
 def run_endless(path_music, photo_pin, photo_bouncetime, led_pin, led_count, timer_duration):
     manager = Manager(path_music, led_count, led_pin, timer_duration)
@@ -210,6 +214,7 @@ def run_endless(path_music, photo_pin, photo_bouncetime, led_pin, led_count, tim
         del manager
         GPIO.remove_event_detect(photo_pin)
         run_endless()
+
 
 if __name__ == '__main__':
         
