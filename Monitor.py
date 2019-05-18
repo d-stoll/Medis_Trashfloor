@@ -9,17 +9,6 @@ import os
 
 class Monitor(Process):
 
-    def __init__(self):
-        Process.__init__(self)
-        self.state = 0
-
-
-    def run(self) -> None:
-        pass
-
-
-if __name__ == '__main__':
-
     # Parameter Photodetektor
     PHOTO_PIN = 23
     PHOTO_BOUNCETIME = 150
@@ -30,10 +19,22 @@ if __name__ == '__main__':
 
     # Parameter Timer
     TIMER_DURATION = 2
-    # NOCH HINZUFUEGEN: COUNTER_MAX
 
     # Parameter Musicplayer
     DIR_MUSIC = os.path.dirname(os.path.realpath(__file__)) + "/Music_Medis"
+
+    def __init__(self):
+        Process.__init__(self)
+        self.state = 0
+        self.photo_resistor =
+
+
+    def run(self) -> None:
+
+
+
+
+if __name__ == '__main__':
 
     # Programmstart
     run_endless(DIR_MUSIC, PHOTO_PIN, PHOTO_BOUNCETIME, LED_PIN, LED_COUNT, TIMER_DURATION)
