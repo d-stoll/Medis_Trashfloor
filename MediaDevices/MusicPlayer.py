@@ -24,6 +24,7 @@ class MusicPlayer(Process):
         self.play_count = 0
 
     def run(self) -> None:
+        self.init_player()
         while True:
             cmd = self.queue.get()
             if isinstance(cmd, MusicCmd):
