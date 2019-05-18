@@ -1,14 +1,25 @@
 from rpi_ws281x import *
+from multiprocessing import Process, Queue, ProcessError
 
 
 # Implementiert einen Lightstrip.
-class Lightstrip:
+class Lightstrip(Process):
 
     # Constructor fuer die Klasse Lightstrip
-    def __init__(self, led_count, led_pin):
+    def __init__(self, led_count, led_pin, queue: Queue):
+        Process.__init__(self)
+        self.queue = queue
         self.strip = Adafruit_NeoPixel(led_count, led_pin)
         self.strip.begin()
         self.clear()
+
+    def run(self) -> None:
+        while True:
+            state = self.queue.get()
+            if not isinstance(state, int):
+                raise ProcessError("Illegal IPC-Message. Restart Lightstrip-Process....")
+            else:
+                self.loading(state)
 
     # Laedt Ladebalkenmuster auf
     def loading(self, counter):
@@ -33,7 +44,7 @@ class Lightstrip:
         self.strip.show()
 
     # Beendet alle Instanzen
-    def delete(self):
+    def __del__(self):
         self.clear()
         del self.strip
 
