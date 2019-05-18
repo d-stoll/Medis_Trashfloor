@@ -23,10 +23,13 @@ class Photoresistor(Process):
     def share_event(self):
         self.queue.put(PSignal.ACTIVE)
 
+    def __del__(self):
+        GPIO.remove_event_detect(self.photo_pin)
+
     def run(self) -> None:
         self.setup_gpios()
         while True:
-            sleep(1)
+            sleep(0.1)
 
 
 
