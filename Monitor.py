@@ -87,17 +87,36 @@ class Monitor(Process):
         self.lightstrip.start()
 
         while True:
-            motion = self.queue_pr.get()
-            if not isinstance(motion, PSignal):
-                self.restart_photoresistor()
-            self.react_on_event()
+            try:
+                motion = self.queue_pr.get()
+                if not isinstance(motion, PSignal):
+                    self.restart_photo_resistor()
+                self.react_on_event()
+            except Exception:
+                self.restart_lightstrip()
+                self.restart_music_player()
+                self.restart_photo_resistor()
 
-    def restart_photoresistor(self):
+    def restart_photo_resistor(self):
         del self.queue_pr
         del self.photo_resistor
         self.queue_pr = Queue()
         self.photo_resistor = Photoresistor(PHOTO_PIN, PHOTO_BOUNCETIME, self.queue_pr)
         self.photo_resistor.start()
+
+    def restart_music_player(self):
+        del self.queue_mp
+        del self.music_player
+        self.queue_mp = Queue()
+        self.music_player = MusicPlayer(DIR_MUSIC, self.queue_mp)
+        self.music_player.start()
+
+    def restart_lightstrip(self):
+        del self.queue_ls
+        del self.lightstrip
+        self.queue_ls = Queue()
+        self.lightstrip = Lightstrip(LED_COUNT, LED_PIN, self.queue_ls)
+        self.lightstrip.start()
 
 
 if __name__ == '__main__':
